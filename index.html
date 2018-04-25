@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src data: gap: https://ssl.gstatic.com 'unsafe-eval' *;
+     style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; connect-src
+      'self' *">
+    <title>Title</title>
+    <title>Testing Transition</title>
+    <!--jQuery-->
+    <script src="js/lib/jquery-2.1.4.js"></script>
+    <!--jQuery mobile-->
+
+    <script src="js/lib/jquery.mobile-1.4.5.js"></script>
+    <script src="js/lib/jquery.validate.js"></script>
+
+    <script src="js/database.js"></script>
+    <script src="js/FinalProjectFacade.js"></script>
+    <script src="js/recipesDAL.js"></script>
+    <script src="js/shoppingListDAL.js"></script>
+    <script src="js/ingredientsOnHandDAL.js"></script>
+
+    <script src="js/util.js"></script>
+    <script src="js/global.js"></script>
+    <!--jQuery mobile css-->
+    <link rel="stylesheet" type="text/css" href="css/lib/jquery.mobile-1.4.5.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+</head>
+<body>
+<!-- ======================HOME PAGE ===================== -->
+<div data-role="page" id="homePage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+
+    <div data-role="panel" id="homeMenuPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a data-transition="pop" data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a data-transition="pop" data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a data-transition="pop" href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a data-transition="pop" href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+
+        </ul>
+    </div>
+    <section data-role="content" >
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop" class="ui-btn-active ui-state-persist" data-icon="home" href="#">Home</a></li>
+                <li><a data-transition="pop" data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop"data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop"class="menu" data-icon="plus" href="#homeMenuPanel">Menu</a></li>
+            </ul>
+        </div>
+        <h1>Welcome to Meal Planner</h1>
+        <img id="homeImg" src="img/home.png" alt="home">
+        <h3>Use the Navbar for Quick Navigation & the Menu Tab to Navigate the Rest of the App</h3>
+        <h4>Head Over to The Recipes Tab in Order to Begin Adding to Your Collection</h4>
+
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+<!-- ======================SHARED Recipes PAGE ===================== -->
+<div data-role="page" id="sharedRecipePage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+    <div data-role="panel" id="sharedRecipeMenuPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a  data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a data-transition="pop" data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a data-transition="pop" href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a data-transition="pop" href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop"data-icon="home" href="#homePage">Home</a></li>
+                <li><a data-transition="pop"data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop"data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop"class="ui-btn-active ui-state-persist" data-icon="plus" href="#sharedRecipeMenuPanel">Menu</a></li>
+            </ul>
+        </div>
+        <h1>Recipes Shared by Other Users</h1>
+        <ul id="displaySharedRecipes" data-role="listview" class="ui-listview-inset">
+
+        </ul>
+
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+<!-- ======================Recipes PAGE ===================== -->
+<div data-role="page" id="recipeListPage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+    <div data-role="panel" id="recipeMenuPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a data-transition="pop" data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a data-transition="pop" href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a  data-transition="pop"href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop"data-icon="home" href="#homePage">Home</a></li>
+                <li><a data-transition="pop"class="ui-btn-active ui-state-persist" data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a  data-transition="pop"data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a  data-transition="pop"data-icon="plus" href="#recipeMenuPanel">Menu</a></li>
+            </ul>
+        </div>
+        <h1>Welcome to Your Recipes</h1>
+        <ul id="displayRecipesList" data-role="listview" class="ui-listview-inset">
+
+        </ul>
+        <a class="ui-btn" href="#addRecipePage">Add Recipe</a>
+        <input type="button" class="ui-btn-active" value="Delete All Recipes" id="deleteAllRecipes" name="deleteAllRecipes">
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+<!-- ======================ADD Recipes PAGE ===================== -->
+<div data-role="page" id="addRecipePage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+    <div data-role="panel" id="addRecipeMenuPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a data-transition="pop" data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a data-transition="pop" href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a data-transition="pop" href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop"data-icon="home" href="#homePage">Home</a></li>
+                <li><a  data-transition="pop"class="ui-btn-active ui-state-persist" data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop"data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop"data-icon="plus" href="#addRecipeMenuPanel">Menu</a></li>
+            </ul>
+        </div>
+        <h1>Enter Info for New Recipe</h1>
+        <form action="index.html#recipeListPage" id="addRecipeForm" name="addRecipeForm" data-ajax="false">
+            <label for="recipeName">Name: </label>
+            <input type="text" id="recipeName" name="recipeName">
+
+            <label for="recipeDescription">Description: </label>
+            <input  type="text" id="recipeDescription" name="recipeDescription">
+
+            <label for="recipeHeatLevel">Level of Spice: </label>
+            <select name="recipeHeatLevel" id="recipeHeatLevel">
+                <option value="img/none.png">None</option>
+                <option value="img/mild.png">Mild</option>
+                <option value="img/hot.png">Hot</option>
+            </select>
+
+            <label for="recipeIngredient"> Recipe Ingredients </label>
+            <p>Tap to edit added ingredient - Tap & hold to delete added ingredient</p>
+            <div id="displayIngredients" data-role="controlgroup">
+
+            </div>
+            <input type="text" id="recipeIngredient" name="recipeIngredient">
+
+            <button type="button" class="ui-btn-active" id="addIngredient" name="addIngredient">Add Ingredient</button>
+
+            <label for="recipeInstruction">Recipe Instructions </label>
+            <p>Tap to edit added instruction - Tap & hold to delete added instruction</p>
+
+            <div id="displayInstructions">
+
+            </div>
+            <input type="text" id="recipeInstruction" name="recipeInstruction">
+            <button type="button" class="ui-btn-active" id="addInstruction" name="addInstruction">Add Instruction</button>
+            <div class="ui-field-contain">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <button type="submit" class="ui-btn-active" id="submitRecipeForm" name="submitRecipeForm">Save</button>
+                    <a type="button" class="ui-btn" href="#recipeListPage">Back</a>
+                </fieldset>
+            </div>
+
+        </form>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+<!-- ======================RECIPE DETAIL PAGE ===================== -->
+<div data-role="page" id="recipeDetailPage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+    <div data-role="panel" id="recipeDetailMenuPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a  data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a  data-transition="pop" data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a  data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a  data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a  data-transition="pop" href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a  data-transition="pop" href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop" data-icon="home" href="#homePage">Home</a></li>
+                <li><a data-transition="pop" class="ui-btn-active ui-state-persist" data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop"data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop"data-icon="plus" href="#recipeDetailMenuPanel">Menu</a></li>
+            </ul>
+        </div>
+        <h2 id="displayRecipeName" name="displayRecipeName"></h2>
+        <p id="displayDescription"></p>
+        <h4>How Spicy is it?</h4>
+        <div id="displayHeatLevel"></div>
+        <h3>Ingredients</h3>
+        <ul id="ingredients" data-role="listview" class="ui-listview-inset">
+
+        </ul>
+        <h3>Instructions</h3>
+        <ul data-role="listview" id="instructions" class="ui-listview-inset" style="text-align: center"></ul>
+        <button class="ui-btn-active" id="AddToShoppingList">Add to Shopping List</button>
+        <button class="ui-btn" id="shareRecipe">Share Recipe</button>
+        <div class="ui-field-contain">
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <button class="ui-btn-active" id="EditRecipe">Edit</button>
+                <a style="background-color:red;" type="button" id="deleteRecipe" class="ui-btn" href="#">Delete</a>
+                <a type="button" class="ui-btn" href="#recipeListPage">Back</a>
+
+            </fieldset>
+        </div>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+<!-- ======================EDIT RECIPE PAGE ===================== -->
+<div data-role="page" id="editRecipePage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+    <div data-role="panel" id="editRecipeMenuPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a  data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a data-transition="pop"data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a data-transition="pop"href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a data-transition="pop"href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a data-transition="pop"href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a data-transition="pop"href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop"data-icon="home" href="#homePage">Home</a></li>
+                <li><a data-transition="pop"class="ui-btn-active ui-state-persist" data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop"data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop"data-icon="plus" href="#editRecipeMenuPanel">Menu</a></li>
+            </ul>
+        </div>
+        <h1>Edit Recipe Info</h1>
+
+        <form action="index.html#recipeListPage" id="editRecipeForm" name="editRecipeForm" data-ajax="false">
+            <label for="editRecipeName">Name: </label>
+            <input  type="text" id="editRecipeName" name="editRecipeName">
+
+            <label for="editRecipeDescription">Description: </label>
+            <input  type="text" id="editRecipeDescription" name="editRecipeDescription">
+
+            <label for="editRecipeHeatLevel">Level of Spice: </label>
+            <select name="editRecipeHeatLevel" id="editRecipeHeatLevel">
+                <option value="img/none.png">None</option>
+                <option value="img/mild.png">Mild</option>
+                <option value="img/hot.png">Hot</option>
+            </select>
+            <label for="editRecipeIngredient"> Recipe Ingredients </label>
+            <p>Tap to edit ingredient - Tap & hold to delete ingredient</p>
+            <div id="displayEditedIngredients" data-role="controlgroup">
+
+            </div>
+            <input type="text" id="editRecipeIngredient" name="editRecipeIngredient">
+
+            <button type="button" class="ui-btn-active" id="editIngredient" name="editIngredient">Add Ingredient</button>
+
+            <label for="editRecipeInstruction">Recipe Instructions </label>
+            <p>Tap to edit instruction - Tap & hold to delete instruction</p>
+            <div id="displayEditedInstructions">
+
+            </div>
+            <input type="text" id="editRecipeInstruction" name="editRecipeInstruction">
+            <button type="button" class="ui-btn-active" id="editInstruction" name="editInstruction">Add Instruction</button>
+            <div class="ui-field-contain">
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <button type="submit" class="ui-btn-active" id="submitEditRecipeForm" name="submitEditRecipeForm">Save Recipe</button>
+                    <a type="button" class="ui-btn" href="#recipeListPage">Back</a>
+
+
+                </fieldset>
+            </div>
+        </form>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+<!-- ======================SHOPPING LIST PAGE ===================== -->
+<div data-role="page" id="shoppingListPage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+    <div data-role="panel" id="shoppingMenuPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a  data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a  data-transition="pop" data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a  data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a  data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a  data-transition="pop" href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a  data-transition="pop" href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop"data-icon="home" href="#homePage">Home</a></li>
+                <li><a data-transition="pop"data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop"class="ui-btn-active ui-state-persist" data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop"data-icon="plus" href="#shoppingMenuPanel">Menu</a></li>
+            </ul>
+        </div>
+        <h1>Welcome to Your Shopping List</h1>
+        <img src="img/shopping.png" alt="">
+        <p>Tap & hold to delete an item from the list</p>
+        <p>Tap on an item to see all items that have the same name</p>
+        <ul id="displayShoppingList" data-role="listview" class="ui-listview-inset">
+        </ul>
+        <input type="button" class="ui-btn-active" value="Clear Shopping List" id="deleteAllShoppingListItems" name="deleteAllShoppingListItems">
+
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+<!-- ======================INGREDIENT DETAIL PAGE ===================== -->
+<div data-role="page" id="ingredientDetailPage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+    <div data-role="panel" id="ingredientDetailMenuPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a data-transition="pop"data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a data-transition="pop"data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a data-transition="pop" href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a data-transition="pop" href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop"  data-icon="home" href="#homePage">Home</a></li>
+                <li><a data-transition="pop"  data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop" class="ui-btn-active ui-state-persist" data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop"  data-icon="plus" href="#ingredientDetailMenuPanel">Menu</a></li>
+            </ul>
+        </div>
+        <ul id="displaySelectedIngredients" data-role="listview" class="ui-listview-inset">
+
+        </ul>
+        <a href="#shoppingListPage" class="ui-btn">Back</a>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+<!-- ======================INGREDIENTS ON HAND ===================== -->
+<div data-role="page" id="iOnHandPage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+
+    <div data-role="panel" id="iOnHandPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a data-transition="pop" data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a data-transition="pop"href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a data-transition="pop"href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content" >
+        <div data-role="navbar">
+            <ul>
+                <li><a  data-transition="pop"data-icon="home" href="#homePage">Home</a></li>
+                <li><a data-transition="pop" data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop" data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop" class="ui-btn-active ui-state-persist menu" data-icon="plus" href="#iOnHandPanel">Menu</a></li>
+            </ul>
+        </div>
+        <h1>Ingredients You Already Have in your Pantry</h1>
+        <img src="img/onhand.png" alt="">
+        <ul id="displayIngredientsOnHand" data-role="listview" class="ui-listview-inset">
+
+        </ul>
+        <a class="ui-btn" href="#addToOnHandPage">Add Ingredient</a>
+
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+<!-- ======================ADD INGREDIENTS TO ON HAND ===================== -->
+<div data-role="page" id="addToOnHandPage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+
+    <div data-role="panel" id="addToOnHandPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a data-transition="pop" data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a data-transition="pop" href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a data-transition="pop" href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content" >
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop"  data-icon="home" href="#homePage">Home</a></li>
+                <li><a data-transition="pop" data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop" data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop" class="ui-btn-active ui-state-persist menu" data-icon="plus" href="#addToOnHandPanel">Menu</a></li>
+            </ul>
+        </div>
+        <h1>Add Ingredient To Inventory</h1>
+        <form id="onHandIngredientsForm">
+            <label for="">Ingredient Name</label>
+            <input  type="text" id="onHandName"name="onHandName">
+
+            <label for="">Quantity</label>
+            <input  type="number" id="onHandQuantity"name="onHandQuantity">
+
+            <label for="">Protien(g)</label>
+            <input  type="number" id="onHandProtien"name="onHandProtien">
+
+            <label for="">Carbs(g)</label>
+            <input  type="number" id="onHandCarbs"name="onHandCarbs">
+
+            <label for="">Fats(g)</label>
+            <input  type="number" id="onHandFats"name="onHandFats">
+            <a class="ui-btn" id="addToOnHandTable">Add</a>
+        </form>
+
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+<!-- ======================INGREDIENT ON HAND DETAIL PAGE ===================== -->
+<div data-role="page" id="ingredientOnHandDetailPage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+    <div data-role="panel" id="ingredientOnHandDetailMenuPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a data-transition="pop" data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a data-transition="pop" href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a data-transition="pop" href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop"  data-icon="home" href="#homePage">Home</a></li>
+                <li><a data-transition="pop" class="ui-btn-active ui-state-persist" data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop"  data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop"  data-icon="plus" href="#ingredientOnHandDetailMenuPanel">Menu</a></li>
+            </ul>
+        </div>
+        <h2 id="displayOnHandName" name="displayOnHandName"></h2>
+        <h4>Quantity</h4>
+        <p id="displayQuantity"></p>
+
+        <h4>Protien</h4>
+        <p id="displayProtien"> </p>
+
+        <h4>Carbs</h4>
+        <p id="displayCarbs"> </p>
+
+        <h4>Fat</h4>
+        <p id="displayFat"> </p>
+        <a href="#" id="deleteOnHand" class="ui-btn" style="background-color: red;">Delete</a>
+        <a type="button" class="ui-btn" href="#iOnHandPage">Back</a>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka</h4>
+    </footer>
+</div>
+<!-- ======================ABOUT PAGE ===================== -->
+<div data-role="page" id="aboutPage">
+    <header data-role="header">
+        <h1>Meal Planner</h1>
+    </header>
+    <div data-role="panel" id="aboutMenuPanel">
+        <h1>Menu</h1>
+        <ul data-role="listview" class="ui-listview">
+            <li><a data-transition="pop" data-role="button" href="#homePage" data-icon="home">Home</a></li>
+            <li><a data-transition="pop" data-role="button" href="#recipeListPage" data-icon="bullets">Recipes</a></li>
+            <li><a data-transition="pop" href="#shoppingListPage" data-role="button" data-icon="shop">Shopping List</a></li>
+            <li><a data-transition="pop" href="#iOnHandPage" data-role="button" data-icon="star">Ingredients On Hand</a></li>
+            <li><a data-transition="pop" href="#sharedRecipePage" data-role="button"data-icon="cloud">Recipes Shared By Others</a></li>
+            <li><a data-transition="pop" href="#aboutPage" data-role="button"data-icon="info">About</a></li>
+        </ul>
+    </div>
+    <section data-role="content">
+        <div data-role="navbar">
+            <ul>
+                <li><a data-transition="pop"  data-icon="home" href="#homePage">Home</a></li>
+                <li><a data-transition="pop" data-icon="bullets" href="#recipeListPage">Recipes</a></li>
+                <li><a data-transition="pop"  data-icon="shop" href="#shoppingListPage">My Shopping List</a></li>
+                <li><a data-transition="pop"  data-icon="plus" href="#aboutMenuPanel">About</a></li>
+            </ul>
+        </div>
+
+        <h1>About Programmers</h1>
+        <h3 style="color:blue" >Dilshan Karunanayak : 6905921</h3>
+
+        <h3 style="color:blue">Archana Lohani : 6075162</h3>
+    </section>
+    <footer data-position="fixed" data-role="footer" data-theme="b">
+        <h4>&copy; 2018 Dilshan Karunanayaka & Archana Lohani</h4>
+    </footer>
+</div>
+</body>
+</html>

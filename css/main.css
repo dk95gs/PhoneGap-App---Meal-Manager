@@ -1,0 +1,31 @@
+.ui-page .menu {
+    background-color: #fae596;
+
+}
+.ui-page .ui-panel-wrapper  {
+    background: #edd9c0 !important;
+}
+.ui-page section {
+    background: #c9d8c5 !important;
+    text-align: center;
+}
+.ui-navbar a {
+background-color: #b0a18e !important;
+}
+.ui-listview a {
+    background-color: #ede9ce !important;
+}
+#homeImg {
+    width: 300px;
+    height: 250px;
+}
+label.error {
+    color: red;
+    font-weight: bold;
+}
+
+input.error,
+select.error,
+textarea.error {
+    border: 1px red solid;
+}
